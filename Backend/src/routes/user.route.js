@@ -3,6 +3,9 @@ const userRouter = express.Router();
 const validateRegister = require("../utilities/verifyRegisterData.js")
 const {userControllerRegister, userControllerLogin} = require("../controller/user.controller.js")
 const verifyLoginData = require("../utilities/verifyLogindata.js")
+const {authUser} = require("../middlewares/auth.middleware.js")
+
+
 
 userRouter.post("/register", async (req,res)=>{
     try{
@@ -36,11 +39,28 @@ userRouter.post("/login", async(req,res)=>{
         if(result1.error != null){
             throw new Error(result1.error);
         }
+        res.cookie("token", result1.token,{expiresIn : "7d"})
         return res.status(200).json({status: "loggedin", token: result1.token, user : result1.user})
     }catch(err){
         return res.status(400).json({"error is this " : err.message})
     }
 })
 
+userRouter.get("/profile", authUser,async(req,res)=>{
+    res.status(200).json({status : true, user : res.user})
+})
+
+
+
+userRouter.post("/logout", authUser, async(req,res)=>{
+   try{
+        req.cookies.token = null;
+        res.clearCookie("token");
+        res.status(200).json({status: true, message: "logged out", error : null})
+   }catch(err){
+        return res.status(400).json({"error is this " : err.message});
+   }
+
+})
 
 module.exports = userRouter;
