@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const validateRegister = require("../utilities/verifyRegisterData.js")
-const userControllerRegister = require("../controller/user.controller.js")
+const {userControllerRegister, userControllerLogin} = require("../controller/user.controller.js")
 const verifyLoginData = require("../utilities/verifyLogindata.js")
 
 userRouter.post("/register", async (req,res)=>{
@@ -30,15 +30,13 @@ userRouter.post("/login", async(req,res)=>{
         const cred = {email, password};
         const result = await verifyLoginData(cred);
         if(result.error !=null){
-            throw new Error("unregistered user");
+            throw new Error(result.error);
         }
-        const foundUser = result.user;
-        const ismatch = await foundUser.comparePassword(password);
-        if(!ismatch){
-            throw new Error("Invalid credentials");
+        const result1 = await userControllerLogin(cred);
+        if(result1.error != null){
+            throw new Error(result1.error);
         }
-        const token = await foundUser.getJWT();
-        return res.status(200).json({status: "loggedin", token})
+        return res.status(200).json({status: "loggedin", token: result1.token, user : result1.user})
     }catch(err){
         return res.status(400).json({"error is this " : err.message})
     }
