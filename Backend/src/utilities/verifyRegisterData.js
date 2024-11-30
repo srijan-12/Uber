@@ -39,7 +39,7 @@ const validateRegisterCaptain = async(userObj) =>{
             throw new Error("valid e-mail is required")
         }if(!password || !validator.isStrongPassword(password)){
             throw new Error("strong password is required")
-        }if(!vehicle?.color || !vehicle?.plate || !vehicle?.capacity){
+        }if(!vehicle?.color || !vehicle?.plate || !vehicle?.capacity || !vehicle?.vehicleType){
             throw new Error("All vehicle info is required")
         }if(vehicle?.capacity <=0 || vehicle?.capacity >7){
             throw new Error("Enter valid capacity")

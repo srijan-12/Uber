@@ -55,11 +55,24 @@ const captainSchema = new mongoose.Schema({
             type: Number,
             required: true,
             minlength : [1, 'capacity must be atleast 1']
+        },
+        vehicleType:{
+            type : String,
+            required : true,
+            enum : ["bike", "car", "auto"]
+        }
+    },
+    location:{
+        lat:{
+            type : Number
+        },
+        lng:{
+            type : Number
         }
     }
 })
 captainSchema.methods.getJWT = function(){
-    const token = jwt.sign({_id : this._id}, process.env.SECRET_KEY);
+    const token = jwt.sign({_id : this._id}, process.env.SECRET_KEY,{expiresIn:'7d'});
     return token
 }
 captainSchema.methods.comparePassword = async function(password){
