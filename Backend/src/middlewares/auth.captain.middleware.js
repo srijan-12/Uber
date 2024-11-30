@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const User = require("../Models/user.model");
-module.exports.authUser = async(req,res,next)=>{
+const Captain = require("../Models/captain.model");
+module.exports.authCaptain = async(req,res,next)=>{
     try{
         const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
         if(!token) {
@@ -8,7 +8,7 @@ module.exports.authUser = async(req,res,next)=>{
         }
     
         const decodedUserId =  jwt.verify(token, process.env.SECRET_KEY);
-        const foundUser = await User.findById(decodedUserId);
+        const foundUser = await Captain.findById(decodedUserId);
         req.user = foundUser;                      
         next();
     }catch(err){

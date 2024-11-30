@@ -1,6 +1,6 @@
 const express = require("express");
 const userRouter = express.Router();
-const validateRegister = require("../utilities/verifyRegisterData.js")
+const {validateRegister} = require("../utilities/verifyRegisterData.js")
 const {userControllerRegister, userControllerLogin} = require("../controller/user.controller.js")
 const verifyLoginData = require("../utilities/verifyLogindata.js")
 const {authUser} = require("../middlewares/auth.middleware.js")
@@ -47,7 +47,11 @@ userRouter.post("/login", async(req,res)=>{
 })
 
 userRouter.get("/profile", authUser,async(req,res)=>{
-    res.status(200).json({status : true, user : res.user})
+    if(req.user){
+        res.status(200).json({status : true, user : req.user})
+    }else{
+        res.status(400).json({status : false, user : null})
+    }
 })
 
 
