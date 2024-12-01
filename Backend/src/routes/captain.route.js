@@ -15,11 +15,10 @@ captainRouter.post("/register",async (req,res)=>{
             throw new Error(`Validation error : ${result.error.message}`)
         }
         const result1 = await captainControllerRegister(userInput);
-        //cookies generation
-        // res.cookie("token", result1.token,{maxAge: 846000})
-        return res.status(200).json({"user": result1.createdUser, "token": result1.token})
+        res.cookie("token", result1.token,{expiresIn : "7d"})
+        return res.status(200).json({user: result1.createdUser, token: result1.token})
     }catch(err){
-        return res.status(400).json({"error is this " : err.message});
+        return res.status(400).json({error: err.message});
     }
 })
 

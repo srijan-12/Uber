@@ -6,7 +6,6 @@ const verifyLoginData = require("../utilities/verifyLogindata.js")
 const {authUser} = require("../middlewares/auth.middleware.js")
 
 
-
 userRouter.post("/register", async (req,res)=>{
     try{
         const{fullname, email,password} = req.body;
@@ -19,9 +18,10 @@ userRouter.post("/register", async (req,res)=>{
         if(result1.error != null){
             throw new Error(`user creation error : ${result1.error.message}`)
         }
-        return res.status(200).json({"user": result1.createdUser, "token": result1.token})
+        res.cookie("token", result1.token,{expiresIn : "7d"})
+        return res.status(200).json({user: result1.createdUser, token: result1.token})
     }catch(err){
-        return res.status(400).json({"error is this " : err.message});
+        return res.status(400).json({error: err.message});
     }
 })
 
@@ -40,9 +40,9 @@ userRouter.post("/login", async(req,res)=>{
             throw new Error(result1.error);
         }
         res.cookie("token", result1.token,{expiresIn : "7d"})
-        return res.status(200).json({status: "loggedin", token: result1.token, user : result1.user})
+        return res.status(200).json({user: result1.user, token: result1.token})
     }catch(err){
-        return res.status(400).json({"error is this " : err.message})
+        return res.status(400).json({error: err.message});
     }
 })
 
