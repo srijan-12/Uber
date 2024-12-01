@@ -1,14 +1,52 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import axios from "axios";
+import {useDispatch} from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../utitities/userSlice";
 
 export const CaptainLogin = () =>{
-    const[email,setEmail] = useState('');
-    const[password, setPassword] = useState('');
-    const loginHandler = () =>{
-        console.log('fetch api')
+    const[email,setEmail] = useState('johncap@gmail.com');
+    const[password, setPassword] = useState('k8dfh8c@Pfv0gB2');
+    const[showToastError, setShowToastError] = useState(false); 
+    const[showToastSuccess, setShowToastSuccess] = useState(false);
+    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    const loginHandler = async() =>{
+        const credentials = {
+            email: email,
+            password :password
+        }
+        try{
+            const result = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/login`, credentials , {withCredentials :true})
+            if(result?.data?.user){
+                dispatch(addUser(result?.data?.user));
+                setShowToastSuccess(true);
+                setTimeout(()=>{
+                    setShowToastSuccess(false),
+                    navigate("/home")
+                },1500)
+            }
+        }catch(err){
+            setError(err?.response?.data?.error);
+            setShowToastError(true);
+            setTimeout(()=>{
+                setShowToastError(false)
+            },1500)
+        }
     }
     return(
         <>
+        {<div className="toast toast-top toast-center">
+            {showToastError && <div className="alert alert-info">
+                <span>{error}</span>
+            </div>}
+            {showToastSuccess && <div className="alert alert-success">
+                <span>Logging you in</span>
+            </div>}
+        </div>}
             <div className="h-screen w-full flex flex-col justify-between">
                 <div>
                     <div>

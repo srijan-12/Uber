@@ -1,11 +1,22 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        info: {
+          DEFAULT: "#ff0000", // Set your desired red color
+        },
+      },
+    },
   },
-  plugins: [],
-}
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        myCustomTheme: {
+          "info": "#ff0000", // Change info color globally to red
+        },
+      },
+    ],
+  },
+};
