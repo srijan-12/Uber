@@ -42,7 +42,7 @@ export const CaptainSignup = () => {
             setShowToastSuccess(true);
             setTimeout(()=>{
                 setShowToastSuccess(false);
-                navigate("/home");
+                navigate("/home-captain");
             },1500)
             
         }
