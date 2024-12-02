@@ -4,13 +4,12 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utitities/userSlice";
+import { UserPostLoginView } from "./UserPostLoginView.jsx";
 export const PostLogin = () =>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user,setUser] = useState();
     const [redirecting, setRedirecting] = useState(false);
-    // const userData = useSelector(appStore => appStore.user);
-    // console.log(userData)
     const fetchProfile = async()=>{
         try{
             const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`, {withCredentials:true})
@@ -37,7 +36,7 @@ export const PostLogin = () =>{
                     <span>Session expired login again</span>
                 </div>
         </div>}
-        <h1>{user}</h1>
+        <UserPostLoginView/>
         </>
     )
 }
