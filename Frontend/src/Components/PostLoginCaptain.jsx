@@ -4,6 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utitities/captainSlice.js";
+import { CaptainPostLoginView } from "./CaptainPostLoginView.jsx";
 export const PostLoginCaptain = () =>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export const PostLoginCaptain = () =>{
                     <span>Session expired login again</span>
                 </div>
         </div>}
-        <h1>{captain}</h1>
+        <CaptainPostLoginView/>
         </>
     )
 }

@@ -1,7 +1,12 @@
-export const ChooseRidePannel = ({logo,type,capacity,time,para,fair}) =>{
+export const ChooseRidePannel = ({logo,type,capacity,time,para,fair,setChooeseRidePannelShow,setConfirmRidePannelShow,setSaveRideLogo}) =>{
+    const clickHandler = () =>{
+        setChooeseRidePannelShow(false);
+        setConfirmRidePannelShow(true)
+        setSaveRideLogo(logo)
+    }
     return(
         <>
-            <div className="rounded-xl flex items-center my-4 border-4 border-gray-200 active:border-4 active:border-black">
+            <div className="rounded-xl flex items-center my-4 border-4 border-gray-200 active:border-4 active:border-black" onClick={clickHandler}>
                 <div className="rideLogo w-1/4 p-2">
                     <img src={logo} alt="logo"/>
                 </div>

@@ -8,6 +8,7 @@ import {Provider} from "react-redux"
 import { appStore } from './utitities/store'
 import { PostLogin } from './Components/PostLogin'
 import { PostLoginCaptain } from './Components/PostLoginCaptain'
+import { RideStartPage } from './Components/RideStartPage'
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/home-captain' element={<PostLoginCaptain/>}/>
           <Route path='/user-login' element={<UserLogin/>}/>
           <Route path='/user-signup' element={<UserSignup/>}/>
+          <Route path='/user-ride' element={<RideStartPage/>}/>
           <Route path='/captain-login' element={<CaptainLogin/>}/>
           <Route path='/captain-signup' element={<CaptainSignup/>}/>
         </Routes>

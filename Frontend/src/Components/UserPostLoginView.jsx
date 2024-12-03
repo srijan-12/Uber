@@ -3,10 +3,20 @@ import { Link } from "react-router-dom"
 import {gsap} from "gsap"
 import { LocationHistory } from "./LocationHistory";
 import { ChooseRidePannel } from "./ChooseRidePannel";
+import { ConfirmRidePannel } from "./ConfirmRidePannel";
+import { RideStartPage } from "./RideStartPage";
 export const UserPostLoginView = () =>{
     const [showpannel , setShowPannel] = useState(false);
     const[findTripPannel, setFindTripPannel] = useState(true)
-    const[confirmRidePannelShow , setConfirmRidePannelShow] = useState(false)
+    const[chooseRidePannelShow , setChooeseRidePannelShow] = useState(false)
+    const[confirmRidePannelShow , setConfirmRidePannelShow] = useState(false);
+    const[saveAddress, setSaveAddress] = useState('');
+    const[saveRideLogo, setSaveRideLogo] = useState('');
+    const[rideBooked, setRideBooked] = useState(false);
+    const[captainName, setCaptainName] = useState('Sarthak');
+    const[vehicleNumber,setVehicleNumber] = useState('JH01 AZ 9876');
+    const[vehicleModel, setVehicleModel] = useState('Maruti Suzuki Alto');
+    const[rideFare, setRideFare] = useState(193.20);
     const pannelRef = useRef()
 
     const handleShowPannel = () =>{
@@ -20,13 +30,13 @@ export const UserPostLoginView = () =>{
     }
 
     const handleMapClick = () =>{
-        setConfirmRidePannelShow(false),
+        setChooeseRidePannelShow(false),
         setFindTripPannel(true)
     }
 
     return(
         <>
-            <div className="h-screen relative overflow-y-hidden">
+            {!rideBooked && <div className="h-screen relative overflow-y-hidden">
                 <div className="absolute">
                         <Link to= "/">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/1600px-Uber_logo_2018.svg.png" alt="logo" className="w-16 pt-8 ms-6"/>
@@ -54,24 +64,27 @@ export const UserPostLoginView = () =>{
                     </div>
 
                     {showpannel && <div className="h-[80%] bg-white absolute w-full top-[23%] me-4">
-                        <LocationHistory setConfirmRidePannelShow= {setConfirmRidePannelShow} setFindTripPannel={setFindTripPannel} setShowPannel={setShowPannel} pannelRef={pannelRef}/>
+                        <LocationHistory setChooeseRidePannelShow= {setChooeseRidePannelShow} setFindTripPannel={setFindTripPannel} setShowPannel={setShowPannel} setSaveAddress={setSaveAddress} pannelRef={pannelRef}/>
                     </div>}
                     </div>}
-                    {confirmRidePannelShow && <div className="absolute bg-white w-full top-[45%] h-screen p-2">
+                    {chooseRidePannelShow && <div className="absolute bg-white w-full top-[45%] h-screen p-2">
                         <h1 className="text-3xl font-bold p-4">Choose your ride</h1>
-                        <ChooseRidePannel logo="https://i.pinimg.com/474x/8d/21/7b/8d217b1000b642005fea7b6fd6c3d967.jpg" type="UberGo" capacity="4" time="2" para="Affordable, compact rides" fair="193.20"/>
+                        <ChooseRidePannel logo="https://i.pinimg.com/474x/8d/21/7b/8d217b1000b642005fea7b6fd6c3d967.jpg" type="UberGo" capacity="4" time="2" para="Affordable, compact rides" fair="193.20" setChooeseRidePannelShow ={setChooeseRidePannelShow} setConfirmRidePannelShow={setConfirmRidePannelShow} setSaveRideLogo={setSaveRideLogo}/>
 
 
-                        <ChooseRidePannel logo="https://static.toiimg.com/thumb/msid-98228989,imgsize-496903,width-400,resizemode-4/98228989.jpg" type="Moto" capacity="1" time="3" para="Affordable motercycle ride" fair="65.17"/>
+                        <ChooseRidePannel logo="https://static.toiimg.com/thumb/msid-98228989,imgsize-496903,width-400,resizemode-4/98228989.jpg" type="Moto" capacity="1" time="3" para="Affordable motercycle ride" fair="65.17" setChooeseRidePannelShow ={setChooeseRidePannelShow} setConfirmRidePannelShow={setConfirmRidePannelShow} setSaveRideLogo={setSaveRideLogo}/>
 
 
-                        <ChooseRidePannel logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiYZNGPspo5yDiYR9DP05wsjLh1skE79Jfng&s" type="UberAuto" capacity="3" time="5" para="Affordable auto ride" fair="118.21"/>
+                        <ChooseRidePannel logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiYZNGPspo5yDiYR9DP05wsjLh1skE79Jfng&s" type="UberAuto" capacity="3" time="5" para="Affordable auto ride" fair="118.21" setChooeseRidePannelShow ={setChooeseRidePannelShow} setConfirmRidePannelShow={setConfirmRidePannelShow} setSaveRideLogo={setSaveRideLogo}/>
 
                     </div>
                     }
                 
+                    {confirmRidePannelShow && <div className="bg-white absolute w-full top-[28%] me-4"><ConfirmRidePannel setConfirmRidePannelShow={setConfirmRidePannelShow} saveAddress={saveAddress} saveRideLogo={saveRideLogo} setFindTripPannel={setFindTripPannel}  setRideBooked={setRideBooked}/></div>}
+            </div>}
 
-            </div>
+
+            {rideBooked && <RideStartPage saveAddress={saveAddress} saveRideLogo={saveRideLogo} captainName={captainName} vehicleNumber = {vehicleNumber} vehicleModel = {vehicleModel} rideFare = {rideFare} />}
         </>
     )
 }
