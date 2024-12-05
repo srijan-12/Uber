@@ -10,6 +10,7 @@ export const PostLoginCaptain = () =>{
     const dispatch = useDispatch();
     const [captain,setCaptain] = useState();
     const [redirecting, setRedirecting] = useState(false);
+
     const fetchProfile = async()=>{
         try{
             const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/captain/profile`, {withCredentials:true})

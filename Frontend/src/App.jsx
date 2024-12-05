@@ -9,6 +9,7 @@ import { appStore } from './utitities/store'
 import { PostLogin } from './Components/PostLogin'
 import { PostLoginCaptain } from './Components/PostLoginCaptain'
 import { RideStartPage } from './Components/RideStartPage'
+import { CaptainRideFinish } from './Components/CaptainRideFinish'
 function App() {
 
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/user-ride' element={<RideStartPage/>}/>
           <Route path='/captain-login' element={<CaptainLogin/>}/>
           <Route path='/captain-signup' element={<CaptainSignup/>}/>
+          <Route path='/captain-finish-ride' element={<CaptainRideFinish/>}/>
         </Routes>
     </BrowserRouter>
     </Provider>
