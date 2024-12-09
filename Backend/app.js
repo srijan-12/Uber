@@ -3,8 +3,10 @@ dotenv.config();
 const cors = require("cors");
 const userRouter = require("./src/routes/user.route.js")
 const captainRouter = require("./src/routes/captain.route.js")
+const mapRouter = require("./src/routes/map.route.js");
 const express = require("express");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+const rideRouter = require("./src/routes/ride.route.js");
 
 
 
@@ -18,6 +20,8 @@ app.use(cors({
 }))
 app.use("/user", userRouter)
 app.use("/captain", captainRouter);
+app.use("/maps",mapRouter);
+app.use("/ride", rideRouter);
 
 
 
