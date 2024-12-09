@@ -1,8 +1,10 @@
-export const ChooseRidePannel = ({logo,type,capacity,time,para,fair,setChooeseRidePannelShow,setConfirmRidePannelShow,setSaveRideLogo}) =>{
+export const ChooseRidePannel = ({logo,type,capacity,time,para,fair,setChooeseRidePannelShow,setConfirmRidePannelShow,setSaveRideLogo,setSaveRideFare}) =>{
+
     const clickHandler = () =>{
         setChooeseRidePannelShow(false);
         setConfirmRidePannelShow(true)
         setSaveRideLogo(logo)
+        setSaveRideFare(fair);
     }
     return(
         <>

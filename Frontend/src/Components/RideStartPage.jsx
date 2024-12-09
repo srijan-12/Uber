@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-export const RideStartPage = ({saveAddress,saveRideLogo,captainName,vehicleNumber,vehicleModel,rideFare}) =>{
-    const finalFirstAddress = saveAddress.firstAddress.substring(0, 25) + "...";
-    const finalSecondAddress = saveAddress.secondAddress.length > 45 ? saveAddress.secondAddress.substring(0, 45) + "..." : saveAddress.secondAddress;
+export const RideStartPage = ({pickup,dropoff,saveRideLogo,captainName,vehicleNumber,vehicleModel,saveRideFare}) =>{
     return (
         <>
             <div className="h-screen relative overflow-y-hidden">
@@ -30,8 +28,8 @@ export const RideStartPage = ({saveAddress,saveRideLogo,captainName,vehicleNumbe
                     </div>
 
                     <div>
-                        <div className="flex items-center border-b-2"><i className="fa-solid fa-location-dot p-6 text-xl"></i><div><p className="text-xl font-semibold">{finalFirstAddress}</p> <p className="text-sm text-gray-500">{finalSecondAddress}</p></div></div>
-                        <div className="flex items-center"><i class="fa-solid fa-indian-rupee-sign  p-6 text-xl"></i><div><p className="text-xl font-semibold">{rideFare}</p><p className="text-sm text-gray-500">Cash</p></div></div>
+                        <div className="flex items-center border-b-2"><i className="fa-solid fa-location-dot p-6 text-xl"></i><div><p className="text-xl font-semibold">{pickup.length > 30 ? pickup.slice(0, 30) + "..." : pickup}</p> <p className="text-sm text-gray-500">{dropoff.length > 24 ? dropoff.slice(0, 24) + "..." : dropoff}</p></div></div>
+                        <div className="flex items-center"><i class="fa-solid fa-indian-rupee-sign  p-6 text-xl"></i><div><p className="text-xl font-semibold">{saveRideFare}</p><p className="text-sm text-gray-500">Cash</p></div></div>
                     </div>
 
 

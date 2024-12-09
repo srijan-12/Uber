@@ -1,4 +1,4 @@
-export const ConfirmRidePannel = ({setConfirmRidePannelShow, saveAddress, saveRideLogo, setFindTripPannel,setRideBooked}) =>{
+export const ConfirmRidePannel = ({setConfirmRidePannelShow, saveAddress, saveRideLogo, setFindTripPannel,setRideBooked,saveRideFare, pickup, dropoff}) =>{
     const arrowClickHandler = () =>{
         setConfirmRidePannelShow(false);
         setFindTripPannel(true)
@@ -20,9 +20,10 @@ export const ConfirmRidePannel = ({setConfirmRidePannelShow, saveAddress, saveRi
 
                 <div>
                     <div>
-                        <div className="flex items-center border-b-2"><i className="fa-solid fa-map-pin p-6 text-xl"></i><div><p className="text-xl font-semibold">Pickup location</p> <p className="text-sm text-gray-500">Pickup location-1</p></div></div>
-                        <div className="flex items-center border-b-2"><i className="fa-solid fa-location-dot p-6 text-xl"></i><div><p className="text-xl font-semibold">{saveAddress.firstAddress}</p> <p className="text-sm text-gray-500">{saveAddress.secondAddress}</p></div></div>
-                        <div className="flex items-center"><i class="fa-solid fa-indian-rupee-sign  p-6 text-xl"></i><div><p className="text-xl font-semibold">Payment details</p><p className="text-sm text-gray-500">Payment mode</p></div></div>
+                        <div className="flex items-center border-b-2"><i className="fa-solid fa-map-pin p-6 text-xl"></i><div><p className="text-xl font-semibold">{pickup.length > 30 ? pickup.slice(0, 30) + "..." : pickup}</p></div></div>
+
+                        <div className="flex items-center border-b-2"><i className="fa-solid fa-location-dot p-6 text-xl"></i><div><p className="text-xl font-semibold">{dropoff.length > 24 ? dropoff.slice(0, 24) + "..." : dropoff}</p></div></div>
+                        <div className="flex items-center"><i class="fa-solid fa-indian-rupee-sign  p-6 text-xl"></i><div><p className="text-xl font-semibold">₹{saveRideFare}</p><p className="text-sm text-gray-500">Payment mode-CASH</p></div></div>
                     </div>
                 </div>
 
