@@ -35,9 +35,9 @@ const travelTimeMinutes = parseFloat(distanceTime.travelTime.split(' ')[0]);
 const travelDistanceKM = parseFloat(distanceTime.travelDistance.split(' ')[0]);
 
 const fare = {
-  car: Basefare.car + travelDistanceKM * perKMRate.car + travelTimeMinutes * perMinuteRate.car,
-  bike: Basefare.bike + travelDistanceKM * perKMRate.bike + travelTimeMinutes * perMinuteRate.bike,
-  auto: Basefare.auto + travelDistanceKM * perKMRate.auto + travelTimeMinutes * perMinuteRate.auto,
+  car: Math.floor(Basefare.car + travelDistanceKM * perKMRate.car + travelTimeMinutes * perMinuteRate.car),
+  bike: Math.floor(Basefare.bike + travelDistanceKM * perKMRate.bike + travelTimeMinutes * perMinuteRate.bike),
+  auto: Math.floor(Basefare.auto + travelDistanceKM * perKMRate.auto + travelTimeMinutes * perMinuteRate.auto),
 };
 return fare;
     }catch(err){

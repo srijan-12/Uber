@@ -2,6 +2,7 @@ const express = require("express");
 const mapRouter = express.Router();
 const {authUser} = require("../middlewares/auth.middleware.js");
 const {getCoordinatesFromOSM, getTravelTime, getSuggestions} = require("../utilities/maps.service.js");
+const { getFare } = require("../utilities/ride.service.js");
 
 mapRouter.get("/get-co-ordinates", authUser, async(req,res)=>{
     const{address} = req.query;
@@ -37,10 +38,29 @@ mapRouter.get("/get-suggestions", authUser, async(req,res)=>{
     const {input} = req.query;
     try{
         const result = await getSuggestions(input);
-        console.log(result)
+        res.status(200).json({result, error:null});
     }catch(err){
-        console.log(err);
+        res.status(400).json({result:null, error:err});
     }
 })
+
+
+mapRouter.post("/get-fare", authUser, async(req,res)=>{
+    try{
+        const {pickup, dropoff} = req.body;
+        if(pickup.length < 3 || dropoff.length < 3){
+            throw new Error("Enter valid addresses")
+        }
+        const user = req.user;
+    
+        const result = await getFare(pickup, dropoff);
+        res.status(200).json({result : result, error: null})
+    }catch(err){
+        res.status(400).json({error: err.message})
+    }
+
+})
+
+
 
 module.exports = mapRouter;
